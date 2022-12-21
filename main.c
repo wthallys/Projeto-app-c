@@ -20,6 +20,9 @@ int main(int argc, char const *argv[])
             tratador_menu_aluno(alunos, &qtd_atual_aluno);
             break;
         case 2:
+            tratador_menu_professor(alunos, &qtd_atual_aluno);
+            break;
+        case 3:
             printf("Finalizando app...\n\n");
         }
     } while (op_menu_principal != 2);

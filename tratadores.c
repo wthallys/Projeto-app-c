@@ -75,6 +75,77 @@ void tratador_menu_aluno(Aluno **alunos, int *qtd_atual_aluno)
     }
 }
 
+void tratador_menu_professor(Aluno **alunos, int *qtd_atual_aluno)
+{
+    int opcao = menu_crud_aluno();
+    Aluno *aluno = NULL;
+    switch (opcao)
+    {
+    case 1:
+        if (*qtd_atual_aluno >= MAX_ALUNO)
+        {
+            printf("Número máximo de alunos atingido\n");
+        }
+        else
+        {
+            // Passo 1: buscar posicao disponível
+            int i = 0;
+            for (; i < *qtd_atual_aluno; i++)
+            {
+                if (alunos[i] != NULL)
+                {
+                    // significa que esta posição está livre para uso
+                    break;
+                }
+            }
+            Aluno *aluno = construir_aluno();
+            alunos[i] = aluno;
+            *qtd_atual_aluno++;
+        }
+        break;
+    case 2:
+    {
+        int posicao = 0;
+        aluno = buscar_aluno(alunos, &posicao);
+        if (aluno)
+        {
+            imprimir_aluno(aluno);
+        }
+        else
+        {
+            printf("Aluno não encontrado!!\n");
+        }
+    }
+    break;
+    case 3:
+    {
+        printf("Implementar a atualização de aluno\n");
+    }
+
+    break;
+    case 4:
+    {
+        int posicao = 0;
+        aluno = buscar_aluno(alunos, &posicao);
+        if (aluno)
+        {
+            destruirAluno(aluno);
+            alunos[posicao] = NULL;
+            printf("Aluno destruido\n");
+        }
+        else
+        {
+            printf("Aluno não encontrado!!\n");
+        }
+    }
+
+    break;
+    default:
+        printf("Retornando ao menu principal\n");
+        break;
+    }
+}
+
 Endereco *construir_endereco()
 {
     Endereco endereco;

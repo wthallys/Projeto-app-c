@@ -3,6 +3,8 @@
 
 #include "dados.h"
 void tratador_menu_aluno(Aluno **alunos, int *qtd_atual_aluno);
+void tratador_menu_professor(Aluno **alunos, int *qtd_atual_aluno);
+
 Endereco *construir_endereco();
 
 Aluno *construir_aluno();

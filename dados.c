@@ -60,3 +60,23 @@ void destruirEndereco(Endereco *endereco)
     if (endereco)
         free(endereco);
 }
+
+Professor *criarAluno(char *matricula,
+                  char *cpf,
+                  char *nome,
+                  Endereco *end)
+{
+    Aluno *aluno = (Aluno *)malloc(sizeof(Aluno));
+    if (aluno)
+    {
+        strcpy(aluno->matricula, matricula); // Copia matricula para aluno->matricula
+        strcpy(aluno->cpf, cpf);
+        strcpy(aluno->nome, nome);
+        aluno->endereco = end;
+    }
+    else
+    {
+        perror("Não há memória disponível. Encerrando\n\n");
+    }
+    return aluno;
+}
