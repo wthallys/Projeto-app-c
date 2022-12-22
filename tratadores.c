@@ -27,7 +27,7 @@ void tratador_menu_aluno(Aluno **alunos, int *qtd_atual_aluno)
                     break;
                 }
             }
-            Aluno *aluno = construir_aluno();
+            Aluno *aluno = construir_aluno(alunos);
             alunos[i] = aluno;
             *qtd_atual_aluno++;
         }
@@ -48,7 +48,17 @@ void tratador_menu_aluno(Aluno **alunos, int *qtd_atual_aluno)
     break;
     case 3:
     {
-        printf("Implementar a atualização de aluno\n");
+        int posicao = 0;
+        aluno = buscar_aluno(alunos, &posicao);
+        if (aluno)
+        {
+            atualizar_aluno(aluno);
+            printf("Aluno atualizado!!\n");
+        }
+        else
+        {
+            printf("Aluno não encontrado!!\n");
+        }
     }
 
     break;
@@ -98,7 +108,7 @@ void tratador_menu_professor(Professor **professores, int *qtd_atual_professor)
                     break;
                 }
             }
-            Professor *professor = construir_professor();
+            Professor *professor = construir_professor(professores);
             professores[i] = professor;
             *qtd_atual_professor++;
         }
@@ -119,7 +129,16 @@ void tratador_menu_professor(Professor **professores, int *qtd_atual_professor)
     break;
     case 3:
     {
-        printf("Implementar a atualização de aluno\n");
+        int posicao = 0;
+        professor = buscar_professor(professores, &posicao);
+        if (professor)
+        {
+            atualizar_professor(professor);
+        }
+        else
+        {
+            printf("Professor não encontrado!!\n");
+        }
     }
 
     break;
@@ -164,11 +183,20 @@ Endereco *construir_endereco()
     return criarEndereco(endereco.logradouro, endereco.bairro, endereco.cidade, endereco.estado, endereco.numero);
 }
 
-Aluno *construir_aluno()
+Aluno *construir_aluno(Aluno **alunos)
 {
     Aluno aluno;
     printf("Matrícula\t> ");
     fgets(aluno.matricula, 9, stdin);
+    if (alunos[0] != NULL) {
+        int posicao = 0;
+        printf("Verificando se a matrícula já existe, pfv insira novamente:\n");
+        Aluno *resultado = buscar_aluno(alunos, &posicao);
+        if (resultado) {
+            printf("Matrícula já existente!\n");
+            return 0;
+        }
+    }
     printf("CPF\t> ");
     fgets(aluno.cpf, 9, stdin);
     printf("Nome\t> ");
@@ -177,17 +205,48 @@ Aluno *construir_aluno()
     return criarAluno(aluno.matricula, aluno.cpf, aluno.nome, aluno.endereco);
 }
 
-Professor *construir_professor()
+Aluno *atualizar_aluno(Aluno *aluno)
+{
+    Aluno novo_aluno;
+    printf("CPF\t> ");
+    fgets(novo_aluno.cpf, 12, stdin);
+    printf("Nome\t> ");
+    fgets(novo_aluno.nome, 49, stdin);
+    novo_aluno.endereco = construir_endereco();
+    return atualizarAluno(aluno, &novo_aluno); 
+}
+
+Professor *construir_professor(Professor **professores)
 {
     Professor professor;
     printf("Matrícula\t> ");
     fgets(professor.matricula, 9, stdin);
+    if (professores[0] != NULL) {
+        int posicao = 0;
+        printf("Verificando se a matrícula já existe, pfv insira novamente:\n");
+        Professor *resultado = buscar_professor(professores, &posicao);
+        if (resultado) {
+            printf("Matrícula já existente!\n");
+            return 0;
+        }
+    }
     printf("CPF\t> ");
     fgets(professor.cpf, 9, stdin);
     printf("Nome\t> ");
     fgets(professor.nome, 49, stdin);
     professor.endereco = construir_endereco();
     return criarProfessor(professor.matricula, professor.cpf, professor.nome, professor.endereco);
+}
+
+Professor *atualizar_professor(Professor *professor)
+{
+    Professor novo_professor;
+    printf("CPF\t> ");
+    fgets(novo_professor.cpf, 12, stdin);
+    printf("Nome\t> ");
+    fgets(novo_professor.nome, 49, stdin);
+    novo_professor.endereco = construir_endereco();
+    return atualizarProfessor(professor, &novo_professor); 
 }
 
 Aluno *buscar_aluno(Aluno **alunos, int *posicao)

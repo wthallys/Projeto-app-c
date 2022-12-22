@@ -7,21 +7,31 @@ void tratador_menu_professor(Professor **professores, int *qtd_atual_professor);
 
 Endereco *construir_endereco();
 
-Aluno *construir_aluno();
+void imprimir_endereco(Endereco *endereco);
 
 /*
-    Busca um aluno
+    aluno
 */
+Aluno *construir_aluno();
+
 Aluno *buscar_aluno(Aluno **alunos, int *posicao);
 
 void imprimir_aluno(Aluno *aluno);
 
-void imprimir_endereco(Endereco *endereco);
+Aluno *atualizar_aluno();
 
+
+
+/*
+    professor
+*/
 
 Professor *construir_professor();
+
 Professor *buscar_professor(Professor **professores, int *posicao);
+
 void imprimir_professor(Professor *profesores);
-void imprimir_endereco(Endereco *endereco);
+
+Professor *atualizar_professor();
 
 #endif
