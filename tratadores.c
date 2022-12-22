@@ -75,41 +75,41 @@ void tratador_menu_aluno(Aluno **alunos, int *qtd_atual_aluno)
     }
 }
 
-void tratador_menu_professor(Aluno **alunos, int *qtd_atual_aluno)
+void tratador_menu_professor(Professor **professores, int *qtd_atual_professor)
 {
-    int opcao = menu_crud_aluno();
-    Aluno *aluno = NULL;
+    int opcao = menu_crud_professor();
+    Professor *professor = NULL;
     switch (opcao)
     {
     case 1:
-        if (*qtd_atual_aluno >= MAX_ALUNO)
+        if (*qtd_atual_professor >= MAX_PROFESSOR)
         {
-            printf("Número máximo de alunos atingido\n");
+            printf("Número máximo de professores atingido\n");
         }
         else
         {
             // Passo 1: buscar posicao disponível
             int i = 0;
-            for (; i < *qtd_atual_aluno; i++)
+            for (; i < *qtd_atual_professor; i++)
             {
-                if (alunos[i] != NULL)
+                if (professores[i] != NULL)
                 {
                     // significa que esta posição está livre para uso
                     break;
                 }
             }
-            Aluno *aluno = construir_aluno();
-            alunos[i] = aluno;
-            *qtd_atual_aluno++;
+            Professor *professor = construir_professor();
+            professores[i] = professor;
+            *qtd_atual_professor++;
         }
         break;
     case 2:
     {
         int posicao = 0;
-        aluno = buscar_aluno(alunos, &posicao);
-        if (aluno)
+        professor = buscar_professor(professores, &posicao);
+        if (professor)
         {
-            imprimir_aluno(aluno);
+            imprimir_aluno(professor);
         }
         else
         {
@@ -126,16 +126,16 @@ void tratador_menu_professor(Aluno **alunos, int *qtd_atual_aluno)
     case 4:
     {
         int posicao = 0;
-        aluno = buscar_aluno(alunos, &posicao);
-        if (aluno)
+        professor = buscar_professor(professores, &posicao);
+        if (professor)
         {
-            destruirAluno(aluno);
-            alunos[posicao] = NULL;
-            printf("Aluno destruido\n");
+            destruirProfessor(professor);
+            professores[posicao] = NULL;
+            printf("Professor destruido\n");
         }
         else
         {
-            printf("Aluno não encontrado!!\n");
+            printf("Professor não encontrado!!\n");
         }
     }
 
@@ -177,6 +177,19 @@ Aluno *construir_aluno()
     return criarAluno(aluno.matricula, aluno.cpf, aluno.nome, aluno.endereco);
 }
 
+Professor *construir_professor()
+{
+    Professor professor;
+    printf("Matrícula\t> ");
+    fgets(professor.matricula, 9, stdin);
+    printf("CPF\t> ");
+    fgets(professor.cpf, 9, stdin);
+    printf("Nome\t> ");
+    fgets(professor.nome, 49, stdin);
+    professor.endereco = construir_endereco();
+    return criarProfessor(professor.matricula, professor.cpf, professor.nome, professor.endereco);
+}
+
 Aluno *buscar_aluno(Aluno **alunos, int *posicao)
 {
     char matricula[50];
@@ -191,6 +204,27 @@ Aluno *buscar_aluno(Aluno **alunos, int *posicao)
         if (alunos[i] && !strcmp(matricula, alunos[i]->matricula))
         {
             resultado = alunos[i];
+            break;
+        }
+    }
+    *posicao = pos_resultado;
+    return resultado;
+}
+
+Professor *buscar_professor(Professor **professores, int *posicao)
+{
+    char matricula[50];
+    printf("Matrícula > ");
+    fgets(matricula, 49, stdin);
+    Professor *resultado = NULL;
+    int pos_resultado = -1;
+    for (int i = 0; i < MAX_PROFESSOR; i++)
+    {
+        // Vamos testar se o aluno existe e se a matricula e a buscada
+        // strcmp compara strings. Se for 0 indica que são iguais
+        if (professores[i] && !strcmp(matricula, professores[i]->matricula))
+        {
+            resultado = professores[i];
             break;
         }
     }
