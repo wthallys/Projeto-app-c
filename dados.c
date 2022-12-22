@@ -115,6 +115,7 @@ Aluno *atualizarAluno(Aluno *aluno, Aluno *novo_aluno)
 
 Turma *criarTurma(char *codigo_turma,
                   char *nome_disciplina,
+                  Professor *professor,
                   float media_turma) 
 {
     Turma *turma = (Turma *)malloc(sizeof(Turma));
@@ -122,6 +123,7 @@ Turma *criarTurma(char *codigo_turma,
     {
         strcpy(turma->codigo, codigo_turma);
         strcpy(turma->nome_disciplina, nome_disciplina);
+        strcpy(turma->professor, professor);
         turma->media_turma = media_turma;
         turma->qtd_alunos = 0;
     }

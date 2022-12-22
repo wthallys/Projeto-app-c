@@ -61,6 +61,7 @@ typedef struct
 
 Turma *criarTurma(char *codigo_turma,
                   char *nome_disciplina,
+                  Professor *professor,
                   float media_turma);
 
 Turma *adicionarAluno(Turma *turma, Aluno *aluno);
