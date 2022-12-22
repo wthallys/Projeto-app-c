@@ -80,3 +80,13 @@ Professor *criarProfessor(char *matricula,
     }
     return professor;
 }
+
+void destruirProfessor(Professor *professor)
+{
+    if (professor)
+    {
+        Endereco *end = professor->endereco;
+        destruirEndereco(end);
+        free(professor);
+    }
+}

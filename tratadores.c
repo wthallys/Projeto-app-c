@@ -92,7 +92,7 @@ void tratador_menu_professor(Professor **professores, int *qtd_atual_professor)
             int i = 0;
             for (; i < *qtd_atual_professor; i++)
             {
-                if (professores[i] != NULL)
+                if (professores[i] == NULL)
                 {
                     // significa que esta posição está livre para uso
                     break;
@@ -109,11 +109,11 @@ void tratador_menu_professor(Professor **professores, int *qtd_atual_professor)
         professor = buscar_professor(professores, &posicao);
         if (professor)
         {
-            imprimir_aluno(professor);
+            imprimir_professor(professor);
         }
         else
         {
-            printf("Aluno não encontrado!!\n");
+            printf("Professor não encontrado!!\n");
         }
     }
     break;
@@ -247,4 +247,12 @@ void imprimir_endereco(Endereco *endereco)
     printf("Bairro: %s", endereco->bairro);
     printf("Cidade: %s", endereco->cidade);
     printf("Estado: %s", endereco->estado);
+}
+
+void imprimir_professor(Professor *professor)
+{
+    printf("Matrícula: %s", professor->matricula);
+    printf("Nome: %s", professor->nome);
+    printf("CPF: %s", professor->cpf);
+    imprimir_endereco(professor->endereco);
 }
